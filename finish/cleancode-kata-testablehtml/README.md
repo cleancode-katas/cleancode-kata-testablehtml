@@ -54,6 +54,12 @@ Activity
 - replace all occurrences
 - restore the SuiteResponder.SUITE_SETUP_NAME parameter directly remove variable
 
+Activity
+
+- Rename the WikiPage variable in includeIfInherited method to page
+- return the string from includePage method instead of buffer.append
+- add the buffer.append to includeIfInherited method instead
+
 
 
 
