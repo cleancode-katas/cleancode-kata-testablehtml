@@ -27,5 +27,12 @@ Activity
 - Select teardown word in the string and use Extract Variable, replace all 2 occurences
 - name the variable mode
 
+Activity
+
+- select the three lines which are duplicate
+- Extract method
+- name WikiPage variable just page
+- Replace all occurrences when asked
+
 
 
