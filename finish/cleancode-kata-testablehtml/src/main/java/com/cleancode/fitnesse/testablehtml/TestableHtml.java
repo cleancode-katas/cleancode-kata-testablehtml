@@ -5,6 +5,6 @@ import fitnesse.wiki.*;
 public class TestableHtml {
 
     public String testableHtml(PageData pageData, boolean includeSuiteSetup) throws Exception {
-        return new TestableHtmlMaker(pageData, includeSuiteSetup).invoke();
+        return new SetupTeardownSurrounder(pageData, includeSuiteSetup).surround();
     }
 }

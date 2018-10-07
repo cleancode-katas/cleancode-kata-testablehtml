@@ -69,8 +69,14 @@ Activity
 - Change buffer field to String and rename to content
 - Remove side effects from all methods for content by appending strings
 
+Activity
 
-
+- Change logic of pageData.hasAttribute("Test") condition
+- Make two conditionals combine by taking out page content twice
+- extract condition to method isTestPage
+- extract the if condition isTestPage into method surroundPageWithSetupsAndTeardowns
+- Rename class TestableHtmlMaker to SetupTeardownSurrounder
+- rename invoke method to surround
 
 
 

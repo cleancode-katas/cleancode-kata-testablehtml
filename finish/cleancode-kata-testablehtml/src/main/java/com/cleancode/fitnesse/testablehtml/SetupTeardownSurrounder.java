@@ -3,14 +3,14 @@ package com.cleancode.fitnesse.testablehtml;
 import fitnesse.responders.run.SuiteResponder;
 import fitnesse.wiki.*;
 
-public class TestableHtmlMaker {
+public class SetupTeardownSurrounder {
     private PageData pageData;
     private boolean includeSuiteSetup;
     private WikiPage wikiPage;
     private String content;
     private PageCrawler crawler;
 
-    public TestableHtmlMaker(PageData pageData, boolean includeSuiteSetup) {
+    public SetupTeardownSurrounder(PageData pageData, boolean includeSuiteSetup) {
         this.pageData = pageData;
         this.includeSuiteSetup = includeSuiteSetup;
         wikiPage = pageData.getWikiPage();
@@ -18,19 +18,26 @@ public class TestableHtmlMaker {
         crawler = wikiPage.getPageCrawler();
     }
 
-    public String invoke() throws Exception {
+    public String surround() throws Exception {
 
-        if (pageData.hasAttribute("Test")) {
-            content += includeSetups();
-        }
-
-        content += pageData.getContent();
-        if (pageData.hasAttribute("Test")) {
-            content += includeTeardowns();
+        if (isTestPage()) {
+            surroundPageWithSetupsAndTeardowns();
+        } else {
+            content += pageData.getContent();
         }
 
         pageData.setContent(content);
         return pageData.getHtml();
+    }
+
+    private void surroundPageWithSetupsAndTeardowns() throws Exception {
+        content += includeSetups();
+        content += pageData.getContent();
+        content += includeTeardowns();
+    }
+
+    private boolean isTestPage() throws Exception {
+        return pageData.hasAttribute("Test");
     }
 
     private String includeTeardowns() throws Exception {
