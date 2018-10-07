@@ -60,6 +60,15 @@ Activity
 - return the string from includePage method instead of buffer.append
 - add the buffer.append to includeIfInherited method instead
 
+Activity
+
+- select mode variable and use inline refactoring to remove it
+- remove both move variables
+- select the code in first if and name it includeSetups
+- select the code in second if and name it includeTeardowns
+- Change buffer field to String and rename to content
+- Remove side effects from all methods for content by appending strings
+
 
 
 

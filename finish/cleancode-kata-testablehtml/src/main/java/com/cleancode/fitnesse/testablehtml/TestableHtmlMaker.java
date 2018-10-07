@@ -7,45 +7,56 @@ public class TestableHtmlMaker {
     private PageData pageData;
     private boolean includeSuiteSetup;
     private WikiPage wikiPage;
-    private StringBuffer buffer;
+    private String content;
     private PageCrawler crawler;
 
     public TestableHtmlMaker(PageData pageData, boolean includeSuiteSetup) {
         this.pageData = pageData;
         this.includeSuiteSetup = includeSuiteSetup;
         wikiPage = pageData.getWikiPage();
-        buffer = new StringBuffer();
+        content = "";
         crawler = wikiPage.getPageCrawler();
     }
 
     public String invoke() throws Exception {
 
         if (pageData.hasAttribute("Test")) {
-            String mode = "setup";
-            if (includeSuiteSetup) {
-                includeIfInherited(mode, SuiteResponder.SUITE_SETUP_NAME);
-            }
-            includeIfInherited(mode, "SetUp");
+            content += includeSetups();
         }
 
-        buffer.append(pageData.getContent());
+        content += pageData.getContent();
         if (pageData.hasAttribute("Test")) {
-            String mode = "teardown";
-            includeIfInherited(mode, "TearDown");
-            if (includeSuiteSetup) {
-                includeIfInherited(mode, SuiteResponder.SUITE_TEARDOWN_NAME);
-            }
+            content += includeTeardowns();
         }
 
-        pageData.setContent(buffer.toString());
+        pageData.setContent(content);
         return pageData.getHtml();
     }
 
-    private void includeIfInherited(String mode, String pageName) throws Exception {
+    private String includeTeardowns() throws Exception {
+        String teardowns = "";
+        teardowns += includeIfInherited("teardown", "TearDown");
+        if (includeSuiteSetup) {
+            teardowns += includeIfInherited("teardown", SuiteResponder.SUITE_TEARDOWN_NAME);
+        }
+        return teardowns;
+    }
+
+    private String includeSetups() throws Exception {
+        String setups = "";
+        if (includeSuiteSetup) {
+            setups += includeIfInherited("setup", SuiteResponder.SUITE_SETUP_NAME);
+        }
+        setups += includeIfInherited("setup", "SetUp");
+        return setups;
+    }
+
+    private String includeIfInherited(String mode, String pageName) throws Exception {
         WikiPage page = PageCrawlerImpl.getInheritedPage(pageName, wikiPage);
         if (page != null) {
-            buffer.append(includePage(mode, page));
+            return includePage(mode, page);
         }
+        return "";
     }
 
     private String includePage(String mode, WikiPage page) throws Exception {
