@@ -34,5 +34,29 @@ Activity
 - name WikiPage variable just page
 - Replace all occurrences when asked
 
+Activity
+
+- Change string concatenation in includePage
+- Use String.format to create the string instead of concatenation
+- test should pass
+
+Observe
+
+- Duplicate logic for inherited page inclusion
+- the logic includes page only if it exists that is non null
+
+Activity
+
+- Shift the line String mode = "teardown"; to make duplicate lines same
+- Extract the first literal parameter SuiteResponder.SUITE_SETUP_NAME to a variable named pageName
+- Select the three duplicate lines 
+- extract method with name includeIfInherited
+- replace all occurrences
+- restore the SuiteResponder.SUITE_SETUP_NAME parameter directly remove variable
+
+
+
+
+
 
 
