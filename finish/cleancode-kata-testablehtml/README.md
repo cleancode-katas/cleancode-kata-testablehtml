@@ -77,7 +77,3 @@ Activity
 - extract the if condition isTestPage into method surroundPageWithSetupsAndTeardowns
 - Rename class TestableHtmlMaker to SetupTeardownSurrounder
 - rename invoke method to surround
-
-
-
-
