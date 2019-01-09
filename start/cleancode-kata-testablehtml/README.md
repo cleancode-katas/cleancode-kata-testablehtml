@@ -77,3 +77,9 @@ Activity
 - extract the if condition isTestPage into method surroundPageWithSetupsAndTeardowns
 - Rename class TestableHtmlMaker to SetupTeardownSurrounder
 - rename invoke method to surround
+
+## Code changes from commits
+
+The commits of this repository are maintained according to the Activity lists mentioned above and follow one or two activities per commit.  They can be used to check what code was changed for those activities.
+
+![commits](cleancode-kata-testablehtml-commits.png)
